@@ -1,9 +1,10 @@
 # data_manipulator.py
 import os
+import logging
 
 import pandas as pd
 
-def get_input_data(filename):
+def get_input_data(bucket, filename):
     # da la ruta exacta de éste script
     current_dir = os.path.dirname(os.path.abspath(__file__) )
     source_dir  = current_dir[:current_dir.rfind('/')]
@@ -18,4 +19,12 @@ def get_input_data(filename):
     return data
 
 if __name__ == '__main__':
-    get_input_data(None)
+    # set up the logging output format (to visualize in a terminal)
+    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    logging.captureWarnings(True)
+    logging.basicConfig(
+        level=logging.INFO,
+        format=log_fmt
+    )
+
+    get_input_data()
