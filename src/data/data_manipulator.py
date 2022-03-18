@@ -5,6 +5,9 @@ import logging
 import pandas as pd
 
 def get_input_data(bucket, filename):
+
+    logger = logging.getLogger('get_input_data')
+
     # da la ruta exacta de éste script
     current_dir = os.path.dirname(os.path.abspath(__file__) )
     source_dir  = current_dir[:current_dir.rfind('/')]
@@ -13,9 +16,11 @@ def get_input_data(bucket, filename):
     # filepath = project_dir + '/data/raw'
     filepath = os.path.join(project_dir, 'data', 'raw')
     file     = os.path.join(filepath, filename)
-    print('data path', file)
+
+    logger.info('Reading file: {}'.format(file))
     data = pd.read_csv(file, encoding='latin1', sep=';')
-    
+    logger.info('Done!!')
+ 
     return data
 
 if __name__ == '__main__':
