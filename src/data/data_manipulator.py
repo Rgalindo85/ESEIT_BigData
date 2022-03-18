@@ -5,6 +5,16 @@ import logging
 import pandas as pd
 
 def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename='datos-abiertos-agosto-2019.csv'):
+    """Read a csv file in a bucket of GCS, the file must use latin1 encoding and the separator is a semicolon (;)
+
+    Args:
+        bucket (str, optional): Name of the bucket. Defaults to 'esp-big-data'.
+        initial_directory (str, optional): project directory. Defaults to 'BigData'.
+        filename (str, optional):csv file to read. Defaults to 'datos-abiertos-agosto-2019.csv'.
+
+    Returns:
+        pandas.dataframe: dataframe with the raw data
+    """
 
     logger = logging.getLogger('get_input_data')
 
@@ -29,8 +39,8 @@ if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.captureWarnings(True)
     logging.basicConfig(
-        level=logging.INFO,
-        format=log_fmt
+        level  = logging.INFO,
+        format = log_fmt
     )
 
     get_input_data()
