@@ -4,16 +4,17 @@ import logging
 
 import pandas as pd
 
-def get_input_data(bucket='esp-big-data', initial_directory = 'BigData', filename='datos-abiertos-agosto-2019.csv'):
+def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename='datos-abiertos-agosto-2019.csv'):
 
     logger = logging.getLogger('get_input_data')
 
-    # da la ruta exacta de éste script
-    current_dir = os.path.dirname(os.path.abspath(__file__) )
-    source_dir  = current_dir[:current_dir.rfind('/')]
-    project_dir = source_dir[:source_dir.rfind('/')]
+    # get the path in a bucket in GCS
+    project_dir = 'gs://{bucket_name}/{directory}'.format(
+        bucket_name = bucket,
+        directory   = initial_directory
+    )
 
-    # filepath = project_dir + '/data/raw'
+    # join the path to have the full path of the file
     filepath = os.path.join(project_dir, 'data', 'raw')
     file     = os.path.join(filepath, filename)
 
