@@ -4,7 +4,7 @@ import logging
 
 import pandas as pd
 
-def get_input_data(bucket, filename):
+def get_input_data(bucket='esp-big-data', initial_directory = 'BigData', filename='datos-abiertos-agosto-2019.csv'):
 
     logger = logging.getLogger('get_input_data')
 
