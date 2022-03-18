@@ -56,6 +56,30 @@ def get_headers_from_metadata(bucket='esp-big-data', directory='BigData', filena
 
     return df
 
+def rename_colums(df, metadata):
+    metadata_cols = metadata.columns()
+    data_cols     = df.columns()
+
+    cols_to_keep   = [col for col in data_cols if col in metadata_cols]
+    cols_to_rename = [col for col in data_cols if col not in metadata_cols]
+    
+    return df
+    # dict_cols_rename = dict()
+    # for col in cols_to_rename:
+
+def clean_strin_cols(df):
+    return df
+
+def save_data(df):
+    pass
+
+def run():
+    df_metadata = get_headers_from_metadata()
+    raw_data    = get_input_data()
+    
+    clean_data = rename_colums(df=raw_data, metadata=df_metadata)
+    clean_data = clean_string_cols(df=clean_data)
+    save_data(df=clean_data)
 
 if __name__ == '__main__':
     # set up the logging output format (to visualize in a terminal)
@@ -65,6 +89,6 @@ if __name__ == '__main__':
         level  = logging.INFO,
         format = log_fmt
     )
-
-    df_metadata = get_headers_from_metadata()
-    get_input_data()
+    run()
+    
+    
