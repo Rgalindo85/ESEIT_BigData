@@ -4,7 +4,7 @@ import logging
 
 import pandas as pd
 
-def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename='datos-abiertos-agosto-2019.csv'):
+def get_input_data(bucket='esp-big-data', initial_directory='BigData', step='raw', filename='datos-abiertos-agosto-2019.csv'):
     """Read a csv file in a bucket of GCS, the file must use latin1 encoding and the separator is a semicolon (;)
 
     Args:
@@ -25,7 +25,7 @@ def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename=
     )
 
     # join the path to have the full path of the file
-    filepath = os.path.join(project_dir, 'data', 'raw')
+    filepath = os.path.join(project_dir, 'data', step)
     file     = os.path.join(filepath, filename)
 
     logger.info('Reading file: {}'.format(file))
