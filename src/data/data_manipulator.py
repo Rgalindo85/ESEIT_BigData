@@ -3,8 +3,14 @@ import os
 import logging
 
 import pandas as pd
+import numpy as np
 
-def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename='datos-abiertos-agosto-2019.csv'):
+from dateutil.parser import parse
+from dateutil.relativedelta import relativedelta
+
+from tqdm import tqdm
+
+def get_input_data(bucket='esp-big-data', initial_directory='BigData', step = 'raw', filename='datos-abiertos-agosto-2019.csv'):
     """Read a csv file in a bucket of GCS, the file must use latin1 encoding and the separator is a semicolon (;)
 
     Args:
@@ -25,7 +31,7 @@ def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename=
     )
 
     # join the path to have the full path of the file
-    filepath = os.path.join(project_dir, 'data', 'raw')
+    filepath = os.path.join(project_dir, 'data', step)
     file     = os.path.join(filepath, filename)
 
     logger.info('Reading file: {}'.format(file))
@@ -33,7 +39,6 @@ def get_input_data(bucket='esp-big-data', initial_directory='BigData', filename=
     logger.info('Done!!')
  
     return data
-
 
 def get_headers_from_metadata(bucket='esp-big-data', directory='BigData', filename='metadatos-llamadas-urg-y-emer.csv'):
     """Read a csv file in a bucket of GCS, the file must use latin1 encoding and the separator is a semicolon (;)
@@ -67,6 +72,30 @@ def rename_colums(df, metadata):
     # dict_cols_rename = dict()
     # for col in cols_to_rename:
 
+def clean_datetime_cols(
+    df,
+    initial_time_col='FECHA_INCIDENTE',
+    final_time_col='FECHA_INICIO_DESPLAZAMIENTO_MOVIL',
+):
+    df_date_nan=df[df[initial_time_col].isna()]
+    df_date_nonan=df[~df[initial_time_col].isna()]
+    
+    ti=df_date_nonan[initial_time_col].apply(parse)
+    tf=df_date_nonan[final_time_col].apply(parse)
+    
+    list_minute=[]
+    
+    for delta_time in deltaT.values:
+            seconds=int(delta_time)/1e9
+            list_minute.append(seconds/60.)
+    list_new_dates=[]
+    for time in tqdm(df_date_nan[final_time_col].values):
+        new_date=aprse(time) - realtivedelta(minutes=np.median(list_minute))
+        list_new_dates.append(new_date)
+    df_date_nan[initial_time_col]=list_new_dates
+    df_out =pd.concat([df_date_nan,df_date_nonan])
+    
+    return df_out
 def clean_strin_cols(df):
     return df
 
