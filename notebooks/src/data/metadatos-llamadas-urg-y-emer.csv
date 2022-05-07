@@ -1,0 +1,13 @@
+NOMBRE;DESCRIPCION
+FECHA_INCIDENTE;Es la fecha el cual se registra la llamada del incidente que ingresa a través del Número Único de Seguridad y Emergencias  NUSE.
+FECHA_INICIO_DESPLAZAMIENTO_MOVIL;Es la fecha el cual se inicia el desplazamiento de la ambulancia al sitio de la emergencia.
+CODIGO LOCALIDAD;Es el código de las 20 localidades de la ciudad de Bogotá según el código perteneciente a cada una de ellas designado por el distrito.
+LOCALIDAD;Es la localidad donde sucede el incidente.
+EDAD;La edad del paciente.
+UNIDAD;La descripción de la edad si es en horas, días, meses ó años.
+GENERO;Es la  distinción de genero del paciente
+RED;Es la localización a nivel bogota de la red de salud el cual se atendió el incidente
+TIPO_INCIDENTE;Es la descripción inicial que tipifica el centro de comando del Número Único de Seguridad y Emergencias  NUSE
+PRIORIDAD;Es la tipificación según la prioridad del incidente.
+MES;Es el mes el cual ocurrió el incidente.
+CLASIFICACION FINAL;Es la clasificación final que entrega el centro regulador de urgencias y emergencias CRUE sobre el incidente.
